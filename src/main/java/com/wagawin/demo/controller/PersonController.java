@@ -11,13 +11,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wagawin.demo.exception.AttributeNotFoundExcption;
 import com.wagawin.demo.exception.ResourceNotFoundExcption;
+import com.wagawin.demo.model.BiCycleColorInfo;
 import com.wagawin.demo.model.Child;
 import com.wagawin.demo.model.ChildInfo;
+import com.wagawin.demo.model.ColorInfo;
+import com.wagawin.demo.model.Daughter;
+import com.wagawin.demo.model.HairColorInfo;
 import com.wagawin.demo.model.House;
+import com.wagawin.demo.model.ParentSummary;
 import com.wagawin.demo.model.Person;
+import com.wagawin.demo.model.Son;
 import com.wagawin.demo.repository.ChildRepository;
 import com.wagawin.demo.repository.HouseRepository;
+import com.wagawin.demo.repository.ParentSummaryRepository;
 import com.wagawin.demo.repository.PersonRepository;
 
 
@@ -36,6 +44,10 @@ public class PersonController {
 	
 	@Autowired
 	ChildRepository childRepository;
+
+	
+	@Autowired
+	ParentSummaryRepository parentSummaryRepository;
 
 
 	@GetMapping(path = "/person/all")
@@ -90,6 +102,29 @@ public class PersonController {
 		else {
 			throw new ResourceNotFoundExcption("child with id: " + id + " not found");
 		}
+	}
+	
+	@GetMapping(path = "/color")
+	public ColorInfo getColor(@RequestParam("childId") Long id) {		
+		Optional<Child> child = childRepository.findById(id);
+		if(child.isPresent()) {
+			Child _child = child.get();
+			if(_child instanceof Son) {
+				return new BiCycleColorInfo( ((Son)_child).getBiCycleColor());
+			}
+			if(_child instanceof Daughter) {
+				return new HairColorInfo( ((Daughter)_child).getHairColor());
+			}
+			throw new AttributeNotFoundExcption("child with id: " + id + " has no color info");						
+		}
+		else {
+			throw new ResourceNotFoundExcption("child with id: " + id + " not found");
+		}		
+	}
+	
+	@GetMapping(path = "/persons/children")
+	public Iterable<ParentSummary> getParentSummary() {		
+		return parentSummaryRepository.findAll();			
 	}
 
 }
