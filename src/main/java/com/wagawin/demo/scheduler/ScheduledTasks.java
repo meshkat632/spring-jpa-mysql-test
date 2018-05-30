@@ -1,9 +1,9 @@
 package com.wagawin.demo.scheduler;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +24,8 @@ import com.wagawin.demo.repository.ParentSummaryRepository;
 @Component
 public class ScheduledTasks {
 
-	private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
-
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+	private static final Logger logger = LoggerFactory.getLogger(ScheduledTasks.class);
+	
 
 	@Autowired
 	ChildRepository childRepository;
@@ -34,10 +33,11 @@ public class ScheduledTasks {
 	@Autowired
 	ParentSummaryRepository parentSummaryRepository;
 
-	@Scheduled(fixedRate = 20000)
+	@Scheduled(cron = "0 0/15 * * * ?")
 	@Transactional
-	public void reportCurrentTime() {
-
+	public void updateSummeryTable() {
+		
+		logger.info("Cron Task :: Execution Time - {}", LocalDateTime.now());
 		Map<Integer, Integer> childrenCountfrequencyMap = new HashMap<>();
 		childRepository.getSummery().forEach(item -> childrenCountfrequencyMap
 				.compute(item.getChidlrenCount().intValue(), (key, value) -> value != null ? value + 1 : 1));

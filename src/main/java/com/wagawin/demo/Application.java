@@ -81,7 +81,7 @@ public class Application {
 		return (args) -> {
 			Faker faker = new Faker();
 			
-			for (int i = 0; i < 1000; i++) {				
+			for (int i = 0; i < 10; i++) {				
 				Person person = new Person();
 				person.setAge(faker.number.between(20, 100));
 				person.setName(faker.name.firstName());
