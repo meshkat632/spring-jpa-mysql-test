@@ -12,6 +12,7 @@ public interface ChildRepository extends PagingAndSortingRepository<Child, Long>
     List<Child> findByName(String name);   
     
 	
-    @Query("SELECT new com.wagawin.demo.model.Summery(parent.id as parentId, count(parent.id) as chidlrenCount) from Child group by parent.id")
-    List<Summery> getSummery(); 
+    @Query("SELECT new com.wagawin.demo.model.Summery(parent.id as parentId, count(parent.id) as chidlrenCount) from Child group by parent.id order by chidlrenCount")
+    List<Summery> getSummery();    
+    
 }

@@ -1,7 +1,12 @@
 package com.wagawin.demo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -123,8 +128,10 @@ public class PersonController {
 	}
 	
 	@GetMapping(path = "/persons/children")
-	public Iterable<ParentSummary> getParentSummary() {		
-		return parentSummaryRepository.findAll();			
+	public List<Integer> getParentSummary() {
+		return StreamSupport.stream(parentSummaryRepository.findAll().spliterator(), false)
+				.map(item -> item.getNumberOfParents())
+				.collect(Collectors.toList());		 	
 	}
 
 }

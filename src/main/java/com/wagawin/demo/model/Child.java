@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,7 +53,7 @@ public class Child {
 	private String name;
 	private int age;
 	
-	@OneToOne	
+	@OneToOne
 	@JsonIgnoreProperties({ "children", "house", "age", "name" })	
 	private Person parent;
 	

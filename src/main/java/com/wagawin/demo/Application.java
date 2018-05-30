@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -81,10 +80,8 @@ public class Application {
 			ParentSummaryRepository parentSummaryRepository) {
 		return (args) -> {
 			Faker faker = new Faker();
-			for (int i = 0; i < 10; i++) {
-				faker.name.firstName(); // Returns "Aaron"
-				faker.company.name(); // Returns "Hirthe-Ritchie"
-
+			
+			for (int i = 0; i < 1000; i++) {				
 				Person person = new Person();
 				person.setAge(faker.number.between(20, 100));
 				person.setName(faker.name.firstName());
@@ -100,14 +97,9 @@ public class Application {
 				else if (houseType == 2)
 					home.setHouseType(HouseType.HOUSE);
 				person.setHouse(home);
-
 				person.setChildren(creatChildren(faker, faker.number.between(0,  5)));
 				personRepository.save(person);
-
-			}
-			System.out.println("AverageAge:"+personRepository.getAverageAge());		
-			System.out.println("getSummery:"+childRepository.getSummery());
-			childRepository.getSummery().forEach(item -> System.out.println(item));
+			}		
 			
 		};
 	}
