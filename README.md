@@ -23,6 +23,7 @@ T run with mysql instance make following changes
 in build.gradle
 
 //runtime('com.h2database:h2')
+
 runtime('mysql:mysql-connector-java'
 
 And update accoringly /demo/src/main/resources/application.properties 
