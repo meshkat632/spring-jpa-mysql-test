@@ -16,6 +16,8 @@ import io.micrometer.core.instrument.Metrics;
 @RestController
 public class EchoController {
 	
+	
+	private static StringBuilder x = new StringBuilder(); 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	class Message {
@@ -30,7 +32,7 @@ public class EchoController {
 		}
 	}
 	
-	private Counter hellos = Metrics.counter("hellos");
+	//private Counter hellos = Metrics.counter("hellos");
 
     @Timed
 	@GetMapping(path = "/echo/{message}")
@@ -45,14 +47,24 @@ public class EchoController {
     public void handlerA() throws InterruptedException {
     	 //hellos.increment();
          logger.info("/endpointA");
-         Thread.sleep(RandomUtils.nextLong(0, 100));
+         //Thread.sleep(RandomUtils.nextLong(0, 100));
+         
+          
+         for(int i = 0 ; i< 1000000; i++) {
+        	 x.append("ljklKSFKLJhasdkfjhaskljdfkalsjdfklajhskdlfjhalksjdhfklajshdfkljahskldjfhaklsjdfhlkajshdfkljhaskldjfhklasjdhfkljashdkfljhaskldjfhklasjdhfklasjdhfkjahsdkjf");
+         }
+         
     }
 
     @GetMapping("/endpointB")
     public void handlerB() throws InterruptedException {
     	 //hellos.increment();
          logger.info("/endpointB ");
-         Thread.sleep(RandomUtils.nextLong(0, 100));
+         //Thread.sleep(RandomUtils.nextLong(0, 100));
+          
+         for(int i = 0 ; i< 1000; i++) {
+        	 x.append("ljklKSFKLJhasdkfjhaskljdfkalsjdfklajhskdlfjhalksjdhfklajshdfkljahskldjfhaklsjdfhlkajshdfkljhaskldjfhklasjdhfkljashdkfljhaskldjfhklasjdhfklasjdhfkjahsdkjf");
+         }
     }
 
 }

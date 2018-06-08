@@ -46,7 +46,7 @@ public class Application {
 		SpringApplication.run(Application.class);
 	}
 
-	/*
+	
 	private static List<Child> creatChildren(Faker faker, int numberOfChildren) throws ParseException {
 		List<Child> children = new ArrayList<Child>();
 		
@@ -107,8 +107,7 @@ public class Application {
 			}		
 			
 		};
-	}
+	}	
 	
-	*/
 
 }
