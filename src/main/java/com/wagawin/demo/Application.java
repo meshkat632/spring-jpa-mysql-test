@@ -80,6 +80,7 @@ public class Application {
 
 	}
 
+	
 	@Bean
 	public CommandLineRunner demo(PersonRepository personRepository, ChildRepository childRepository,
 			ParentSummaryRepository parentSummaryRepository) {
@@ -107,7 +108,8 @@ public class Application {
 			}		
 			
 		};
-	}	
+	}
+	
 	
 
 }
